@@ -14,7 +14,7 @@ TAG ?= v1.0.0
 
 # --- Environment Configuration ---
 # Set the Kubernetes environment. Can be 'kind' or 'docker-desktop'.
-K8S_ENV ?= docker-desktop
+K8S_ENV ?= kind
 
 # Helm and Kind configuration
 HELM_RELEASE_NAME := titanic-release

@@ -83,7 +83,7 @@ The most reliable way to connect to your service running in the cluster is to fo
     Open a **new terminal window** and run the following command. This will create a persistent connection from your local machine to the service.
     ```bash
     # The format is 'svc/<service-name>'
-    kubectl port-forward svc/titanic-release-titanic-go-service 8080:80
+    kubectl port-forward svc/titanic-release-titanic-go-service 8080:8080
     ```
     Note: We forward local port `8080` to the service's port `80`, which then routes to the container's port `8080`. The command will appear to hang, which means the connection is active.
 
@@ -91,10 +91,16 @@ The most reliable way to connect to your service running in the cluster is to fo
     While the port-forward is running, open **another terminal** and you can now test the API using `curl` against `localhost:8080`.
     ```bash
     # Get all passengers
-    curl http://localhost:8080/api/v1/passengers
+    curl http://127.0.0.1:8080/api/v1/passengers
 
     # Get a specific passenger
-    curl http://localhost:8080/api/v1/passengers/5
+    curl http://127.0.0.1:8080/api/v1/passengers/5
+
+    # Get specific attributes for a passenger
+    curl -G http://127.0.0.1:8080/api/v1/passengers/2/attributes \
+    --data-urlencode "attributes=Name" \
+    --data-urlencode "attributes=Age" \
+    --data-urlencode "attributes=Fare"
     ```
 
 ## Development Workflow using `make`

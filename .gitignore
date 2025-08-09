@@ -4,7 +4,5 @@
 
 # Local files
 data/titanic.db
-# API docs can be using make generate-swagger
-docs/*
 
 vendor/

@@ -19,7 +19,7 @@ func setupFunctionalTestServer(t *testing.T) *gin.Engine {
 	// The test is run from the project root, so the path is relative to that.
 	dbPath := "../data/titanic.db"
 	if _, err := os.Stat(dbPath); os.IsNotExist(err) {
-		t.Fatalf("Database file not found at %s. Please run 'make seed-sqlite' first.", dbPath)
+		t.Fatalf("Database file not found at %s. Please run 'make seed-sqlite DATA_SOURCE=sqlite' first.", dbPath)
 	}
 
 	// Use the real SQLite repository, not a mock.

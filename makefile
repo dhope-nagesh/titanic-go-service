@@ -118,6 +118,7 @@ uninstall:
 
 test:
 	@echo "--> Running tests..."
+	@make seed-sqlite DATA_SOURCE=sqlite
 	@go mod vendor
 	@go test ./... -v
 

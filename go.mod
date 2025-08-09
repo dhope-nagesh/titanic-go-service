@@ -3,6 +3,7 @@ module github.com/dhope-nagesh/titanic-go-service
 go 1.24
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/gin-gonic/gin v1.10.1
 	github.com/mattn/go-sqlite3 v1.14.30
 	github.com/spf13/viper v1.20.1

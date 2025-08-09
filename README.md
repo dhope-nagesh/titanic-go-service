@@ -67,7 +67,7 @@ This is the fastest way to get the entire application running on a local Kuberne
 
 4.  **Access Swagger Docs:**
     Navigate to the following URL in your browser (assuming you are port-forwarding to `8080`):
-    `http://localhost:8080/swagger/index.html`
+    `http://127.0.0.1:8080/swagger/index.html`
 
 ## Local Testing with Port-Forwarding
 

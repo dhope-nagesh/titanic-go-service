@@ -3,7 +3,7 @@
 # ==============================================================================
 
 # Your container registry. Can be overridden, e.g., `make push REGISTRY=myregistry`
-REGISTRY ?= yourdockerhubusername
+REGISTRY ?= nageshdhope
 
 # Image names
 SVC_IMAGE_NAME := titanic-go-service
@@ -16,10 +16,10 @@ TAG ?= v1.0.0
 # Set the Kubernetes environment. Can be 'kind' or 'docker-desktop'.
 K8S_ENV ?= kind
 
-# Helm and Kind configuration
+# Helm configuration
 HELM_RELEASE_NAME := titanic-release
 KIND_CLUSTER_NAME := titanic-cluster
-DATA_SOURCE ?= sqlite # Default data source, can be overridden e.g., `make install DATA_SOURCE=csv`
+DATA_SOURCE ?= csv # Default data source, can be overridden e.g., `make install DATA_SOURCE=sqlite`
 
 
 # ==============================================================================
@@ -82,11 +82,14 @@ ifeq ($(K8S_ENV), kind)
 	else \
 		echo "--> Kind cluster '$(KIND_CLUSTER_NAME)' already exists."; \
 	fi
+	@echo "--> Setting up kubectl context for Kind cluster: $(KIND_CLUSTER_NAME)"
+	@kubectl config use-context kind-$(KIND_CLUSTER_NAME)
 	@echo "--> Loading images into Kind cluster..."
 	@kind load docker-image $(REGISTRY)/$(SVC_IMAGE_NAME):$(TAG) --name $(KIND_CLUSTER_NAME)
 	@kind load docker-image $(REGISTRY)/$(DATA_IMAGE_NAME):$(TAG) --name $(KIND_CLUSTER_NAME)
 else
 	@echo "--> Using Docker Desktop Kubernetes. Ensure it is enabled and running."
+	@kubectl config use-context docker-desktop
 	@echo "--> Images built locally are automatically available. Skipping image load."
 endif
 
@@ -136,5 +139,5 @@ help:
 	@echo ""
 	@echo "You can override variables, e.g.:"
 	@echo "  make install K8S_ENV=docker-desktop"
-	@echo "  make install TAG=v1.0.2 REGISTRY=myrepo DATA_SOURCE=csv"
+	@echo "  make install TAG=v1.0.2 REGISTRY=myrepo DATA_SOURCE=sqlite"
 	@echo ""

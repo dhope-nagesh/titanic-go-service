@@ -3,13 +3,13 @@ replicaCount: 1
 
 # Image configuration for the main application container.
 image:
-  repository: yourdockerhubusername/titanic-go-service
+  repository: nageshdhope/titanic-go-service
   pullPolicy: IfNotPresent
   tag: "latest"
 
 # Image configuration for the data loader initContainer.
 dataLoaderImage:
-  repository: yourdockerhubusername/titanic-data-container
+  repository: nageshdhope/titanic-data-container
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -21,4 +21,4 @@ service:
 # Application-specific configuration managed by the ConfigMap.
 config:
   # The data source to use. Can be "sqlite" or "csv".
-  dataSource: "sqlite"
+  dataSource: "csv"

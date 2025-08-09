@@ -26,20 +26,20 @@ Before you begin, ensure you have the following tools installed:
 ```
 
 /titanic-go-service
-|-- cmd/server/main.go       \# Main application entry point
-|-- cmd/seed/main.go         \# Script to seed the SQLite DB
-|-- internal/                \# Internal application logic (handlers, data, models)
-|-- docs/                    \# Auto-generated Swagger documentation
-|-- helm/titanic-chart/      \# Helm chart for Kubernetes deployment
-|-- test/                    \# Unit and functional tests
-|-- Dockerfile               \# Dockerfile for the Go service
-|-- Dockerfile.data          \# Dockerfile for the data container
-|-- Makefile                 \# Command shortcuts for development and deployment
-|-- README.md                \# This file
-|-- config.yaml              \# Local configuration (not used in Docker/K8s)
-|-- go.mod & go.sum          \# Go module files
-|-- titanic.csv              \# The raw dataset
-|-- titanic.db               \# The SQLite database file
+|-- cmd/server/main.go       # Main application entry point
+|-- cmd/seed/main.go         # Script to seed the SQLite DB
+|-- internal/                # Internal application logic (handlers, data, models)
+|-- docs/                    # Auto-generated Swagger documentation
+|-- helm/titanic-chart/      # Helm chart for Kubernetes deployment
+|-- test/                    # Unit and functional tests
+|-- Dockerfile               # Dockerfile for the Go service
+|-- Dockerfile.data          # Dockerfile for the data container
+|-- Makefile                 # Command shortcuts for development and deployment
+|-- README.md                # This file
+|-- config.yaml              # Local configuration (not used in Docker/K8s)
+|-- go.mod & go.sum          # Go module files
+|-- titanic.csv              # The raw dataset
+|-- titanic.db               # The SQLite database file
 
 ````
 

@@ -1,0 +1,6 @@
+server:
+  port: 8080
+data:
+  source: "sqlite" # Can be "csv" or "sqlite"
+  csv_file: "titanic.csv"
+  db_file: "titanic.db"

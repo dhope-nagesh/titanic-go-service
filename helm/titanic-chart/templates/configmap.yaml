@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "titanic-go-service.fullname" . }}-configmap
+  labels:
+    {{- include "titanic-go-service.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    {{- include "titanic-go-service.configmapdata" . | nindent 4 }}

@@ -1,0 +1,9 @@
+# Use a minimal base image, as this container only holds files.
+FROM alpine:latest
+
+# Set a working directory for the data.
+WORKDIR /data
+
+# Copy the data files from your local machine into the container.
+COPY ./data/titanic.csv .
+COPY ./data/titanic.db .

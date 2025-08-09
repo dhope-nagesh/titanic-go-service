@@ -1,0 +1,51 @@
+{{- include "titanic-go-service.validateValues" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "titanic-go-service.fullname" . }}
+  labels:
+    {{- include "titanic-go-service.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "titanic-go-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include "titanic-go-service.configmapdata" . | toYaml | sha256sum }}
+      labels:
+        {{- include "titanic-go-service.selectorLabels" . | nindent 8 }}
+    spec:
+      initContainers:
+        - name: data-loader
+          image: "{{ .Values.dataLoaderImage.repository }}:{{ .Values.dataLoaderImage.tag }}"
+          imagePullPolicy: {{ .Values.dataLoaderImage.pullPolicy }}
+          command: ['sh', '-c', 'cp /data/* /app-data/']
+          volumeMounts:
+            - name: shared-data
+              mountPath: /app-data
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            # Mount the shared data to /data
+            - name: shared-data
+              mountPath: /data
+            # Mount the config file into the same directory as the binary
+            - name: config-volume
+              mountPath: /root/config.yaml
+              subPath: config.yaml
+      volumes:
+        # The shared volume for data files
+        - name: shared-data
+          emptyDir: {}
+        # The volume for the configuration, sourced from our ConfigMap
+        - name: config-volume
+          configMap:
+            name: {{ include "titanic-go-service.fullname" . }}-configmap

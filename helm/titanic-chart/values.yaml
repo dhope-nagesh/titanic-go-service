@@ -1,0 +1,24 @@
+# Default number of pod replicas.
+replicaCount: 1
+
+# Image configuration for the main application container.
+image:
+  repository: yourdockerhubusername/titanic-go-service
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+# Image configuration for the data loader initContainer.
+dataLoaderImage:
+  repository: yourdockerhubusername/titanic-data-container
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+# Service configuration. This section was likely missing or malformed.
+service:
+  type: ClusterIP # Use NodePort for local Docker Desktop, LoadBalancer for cloud.
+  port: 8080
+
+# Application-specific configuration managed by the ConfigMap.
+config:
+  # The data source to use. Can be "sqlite" or "csv".
+  dataSource: "sqlite"

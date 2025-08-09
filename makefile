@@ -114,6 +114,7 @@ uninstall:
 
 test:
 	@echo "--> Running tests..."
+	@go mod vendor
 	@go test ./... -v
 
 clean:

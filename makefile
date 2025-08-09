@@ -14,7 +14,7 @@ TAG ?= v1.0.0
 
 # --- Environment Configuration ---
 # Set the Kubernetes environment. Can be 'kind' or 'docker-desktop'.
-K8S_ENV ?= kind
+K8S_ENV ?= docker-desktop
 
 # Helm configuration
 HELM_RELEASE_NAME := titanic-release
@@ -44,10 +44,14 @@ generate-swagger: install-swagger
 	@echo "--> Generating Swagger documentation..."
 	@swag init -g cmd/server/main.go
 
+# This target will only run the seed script if the DATA_SOURCE is 'sqlite'.
 seed-sqlite:
+ifeq ($(DATA_SOURCE), sqlite)
 	@echo "--> Seeding SQLite database with data from CSV..."
 	@go run cmd/seed/main.go
-
+else
+	@echo "--> Skipping SQLite seeding. DATA_SOURCE is set to $(DATA_SOURCE)."
+endif
 
 ## --------------------------------------
 ## Image Building & Pushing

@@ -48,19 +48,34 @@ Before you begin, ensure you have the following tools installed:
 This is the fastest way to get the entire application running on a local Kubernetes cluster.
 
 1.  **Clone the repository.**
+    ```bash
+    git clone git@github.com:dhope-nagesh/titanic-go-service.git
+    cd titanic-go-service
+    ```
 2.  **Choose your Kubernetes environment and run the installation command.**
 
-    **For Kind (Default):**
-    This single command will build the Docker images, create a local `kind` cluster, load the images into it, and deploy the application using Helm. The default data source is **CSV**.
+    **For Docker Desktop(Default):**
+    Ensure Kubernetes is enabled in Docker Desktop settings, then run:
+    CSV as a data source:
     ```bash
     make install
     ```
-
-    **For Docker Desktop:**
-    Ensure Kubernetes is enabled in Docker Desktop settings, then run:
+    SQLite as a data source:
     ```bash
-    make install K8S_ENV=docker-desktop
+    make install DATA_SOURCE=sqlite
     ```
+
+    **For Kind:**
+    This single command will build the Docker images, create a local `kind` cluster, load the images into it, and deploy the application using Helm.
+    CSV as a data source:
+    ```bash
+    make install K8S_ENV=kind
+    ```
+    SQLite as a data source:
+    ```bash
+    make install K8S_ENV=kind DATA_SOURCE=sqlite
+    ```
+
 
 3.  **Access the Service:**
     Once the pods are running, you can expose the service using `kubectl port-forward` (see section below).
